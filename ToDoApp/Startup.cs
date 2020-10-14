@@ -11,6 +11,7 @@ using ToDoApp.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ToDoApp.Data.Repositories;
 
 namespace ToDoApp
 {
@@ -38,6 +39,8 @@ namespace ToDoApp
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+            services.AddTransient<IToDoRepository<ToDoItem>>();
+            services.AddTransient<IToDoRepository<ToDoItemGroup>>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             // In production, the Angular files will be served from this directory
