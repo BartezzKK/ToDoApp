@@ -7,11 +7,11 @@ namespace ToDoApp.Services
 {
     public interface IToDoService
     {
-        Task<ToDoItem> GetToDoItemById(int id);
-        Task AddAsync(ToDoItem toDoItem);
-        Task DeleteAsync(ToDoItem toDoItem);
-        Task UpdateAsync(ToDoItem toDoItem);
-        Task<IReadOnlyList<ToDoItem>> ListAll();
+        Task<ToDoItem> GetToDoItemByIdAsync(int id);
+        Task AddItemAsync(ToDoItem toDoItem);
+        Task DeleteItemAsync(ToDoItem toDoItem);
+        Task UpdateItemAsync(ToDoItem toDoItem);
+        Task<IReadOnlyList<ToDoItem>> ListAllItemsAsync();
 
     }
 }

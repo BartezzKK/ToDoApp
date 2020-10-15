@@ -10,29 +10,29 @@ namespace ToDoApp.Services
     public class ToDoService : IToDoService
     {
         private ToDoRepository<ToDoItem> toDoRepository;
-        public async Task AddAsync(ToDoItem toDoItem)
+        public async Task AddItemAsync(ToDoItem toDoItem)
         {
            await toDoRepository.AddAsync(toDoItem);
            await toDoRepository.SaveAsync();
         }
 
-        public async Task DeleteAsync(ToDoItem toDoItem)
+        public async Task DeleteItemAsync(ToDoItem toDoItem)
         {
             toDoRepository.Delete(toDoItem);
             await toDoRepository.SaveAsync();
         }
 
-        public Task<ToDoItem> GetToDoItemById(int id)
+        public async Task<ToDoItem> GetToDoItemByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await toDoRepository.GetByIdAsync(id);
         }
 
-        public async Task<IReadOnlyList<ToDoItem>> ListAll()
+        public async Task<IReadOnlyList<ToDoItem>> ListAllItemsAsync()
         {
             return await toDoRepository.ListAllAsync();
         }
 
-        public async Task UpdateAsync(ToDoItem toDoItem)
+        public async Task UpdateItemAsync(ToDoItem toDoItem)
         {
             toDoRepository.Update(toDoItem);
             await toDoRepository.SaveAsync();
