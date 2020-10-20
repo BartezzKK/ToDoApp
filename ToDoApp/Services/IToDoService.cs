@@ -13,5 +13,11 @@ namespace ToDoApp.Services
         Task UpdateItemAsync(ToDoItem toDoItem);
         Task<IReadOnlyList<ToDoItem>> ListAllItemsAsync();
 
+        Task<ToDoItemGroup> GetToDoItemGroupByIdAsync(int id);
+        Task AddItemGroupAsync(ToDoItemGroup toDoItem);
+        Task DeleteItemGroupAsync(ToDoItemGroup toDoItem);
+        Task UpdateItemGroupAsync(ToDoItemGroup toDoItem);
+        Task<IReadOnlyList<ToDoItemGroup>> ListAllGroupAsync();
+
     }
 }

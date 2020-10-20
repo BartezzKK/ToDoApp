@@ -22,8 +22,11 @@ namespace ToDoApp.Models
         public string Description { get; set; }
         [ForeignKey("ToDoItemGroup")]
         public int ToDoItemGroupId { get; set; }
-        public int UserId { get; set; }
+        public bool isDone { get; set; } = false;
+        [ForeignKey("User")]
+        public string UserId { get; set; }
         
         public ToDoItemGroup ToDoItemGroup { get; set; }
+        public ApplicationUser User { get; set; }
     } 
 }

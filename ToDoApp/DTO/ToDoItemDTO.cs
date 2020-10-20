@@ -15,15 +15,38 @@ namespace ToDoApp.DTO
 
         public int Id { get; set; }
         public DateTime CreateDate { get; set; }
-        public DateTime? ModificationDate { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public int ToDoItemGroupId { get; set; }
-        public int UserId { get; set; }
-
+        public string UserId { get; set; }
         public ToDoItemGroup ToDoItemGroup { get; set; }
 
+        public ToDoItem ConvertIntoToDoItem()
+        {
+            return new ToDoItem
+            {
+                Id = Id,
+                Title = Title,
+                Description = Description,
+                ToDoItemGroupId = ToDoItemGroupId
+            };
+        }
 
+        public static ToDoItemDTO ConvertIntoToDoItemDTO(ToDoItem toDoItem)
+        {
+            var toDoItemDTO = new ToDoItemDTO
+            {
+                Id = toDoItem.Id,
+                CreateDate = toDoItem.CreateDate,
+                Title = toDoItem.Title,
+                Description = toDoItem.Description,
+                ToDoItemGroupId = toDoItem.ToDoItemGroupId,
+                UserId = toDoItem.UserId,
+                ToDoItemGroup = toDoItem.ToDoItemGroup,
+            };
+
+            return toDoItemDTO;
+        }
 
     }
 }

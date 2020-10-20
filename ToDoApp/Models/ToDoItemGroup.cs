@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;   
 using System.Threading.Tasks;
 
@@ -18,9 +19,8 @@ namespace ToDoApp.Models
         public int Id { get; set; }
         public DateTime CreateDate { get; set; }
         public string Name { get; set; }
-        public bool isDone { get; set; }
-        public int UserId { get; set; }
-
+        [ForeignKey("User")]
+        public string UserId { get; set; }
         public ICollection<ToDoItem> ToDoItems { get; set; }
 
         public ApplicationUser User { get; set; }
