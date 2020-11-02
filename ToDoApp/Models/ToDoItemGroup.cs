@@ -19,7 +19,6 @@ namespace ToDoApp.Models
         public int Id { get; set; }
         public DateTime CreateDate { get; set; }
         public string Name { get; set; }
-        [ForeignKey("User")]
         public string UserId { get; set; }
         public ICollection<ToDoItem> ToDoItems { get; set; }
 

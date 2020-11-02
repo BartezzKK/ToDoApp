@@ -7,17 +7,12 @@ using ToDoApp.Models;
 
 namespace ToDoApp.Data.Repositories
 {
-    public class ToDoRepository<T> : IToDoRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         protected readonly ApplicationDbContext _dbContext;
-        public ToDoRepository(ApplicationDbContext dbContext)
+        public Repository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-        }
-
-        public void Add(T entity)
-        {
-            _dbContext.Set<T>().Add(entity);
         }
 
         public async Task AddAsync(T entity)
@@ -25,14 +20,10 @@ namespace ToDoApp.Data.Repositories
            await _dbContext.Set<T>().AddAsync(entity);
         }
 
-        public void Delete(T entity)
+        public async Task Delete(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
-        }
-
-        public T GetById(int id)
-        {
-            return _dbContext.Set<T>().Find(id);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<T> GetByIdAsync(int id)
@@ -40,19 +31,15 @@ namespace ToDoApp.Data.Repositories
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public IReadOnlyList<T> ListAll()
-        {
-            return _dbContext.Set<T>().ToList();
-        }
-
         public async  Task<IReadOnlyList<T>> ListAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<int> SaveAsync()

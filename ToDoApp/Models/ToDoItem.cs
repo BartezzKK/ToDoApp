@@ -19,11 +19,10 @@ namespace ToDoApp.Models
         public DateTime CreateDate { get; set; }
         public DateTime? ModificationDate { get; set; }
         public string Title { get; set; }
+        public bool IsDone { get; set; } = false;
         public string Description { get; set; }
-        [ForeignKey("ToDoItemGroup")]
+
         public int ToDoItemGroupId { get; set; }
-        public bool isDone { get; set; } = false;
-        [ForeignKey("User")]
         public string UserId { get; set; }
         
         public ToDoItemGroup ToDoItemGroup { get; set; }

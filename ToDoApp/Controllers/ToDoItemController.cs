@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ToDoApp.DTO;
 using ToDoApp.Models;
 using ToDoApp.Services;
 
@@ -15,19 +16,20 @@ namespace ToDoApp.Controllers
     [ApiController]
     public class ToDoItemController : ControllerBase
     {
-        private readonly IToDoService toDoService;
+        private readonly ITodoItemService toDoService;
         private readonly ILogger<ToDoItemController> logger;
 
-        public ToDoItemController(IToDoService toDoService, ILogger<ToDoItemController> logger)
+        public ToDoItemController(ITodoItemService toDoService, ILogger<ToDoItemController> logger)
         {
             this.toDoService = toDoService;
             this.logger = logger;
         }
         // GET: <ToDoItemController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<ToDoItemDTO>> GetAsync()
         {
-            return new string[] { "value1", "value2" };
+            var result = await toDoService.ListAllItemsAsync();
+            return result.Select(ToDoItemDTO.ConvertIntoToDoItemDTO);
         }
 
         // GET <ToDoItemController>/5

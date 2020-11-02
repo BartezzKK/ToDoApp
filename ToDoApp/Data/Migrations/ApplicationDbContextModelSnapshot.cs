@@ -314,6 +314,9 @@ namespace ToDoApp.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("ModificationDate")
                         .HasColumnType("datetime2");
 
@@ -323,23 +326,12 @@ namespace ToDoApp.Data.Migrations
                     b.Property<int>("ToDoItemGroupId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ToDoItemGroupId1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ToDoItemGroupId2")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("isDone")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ToDoItemGroupId");
-
-                    b.HasIndex("ToDoItemGroupId1");
 
                     b.HasIndex("UserId");
 
@@ -423,14 +415,10 @@ namespace ToDoApp.Data.Migrations
             modelBuilder.Entity("ToDoApp.Models.ToDoItem", b =>
                 {
                     b.HasOne("ToDoApp.Models.ToDoItemGroup", "ToDoItemGroup")
-                        .WithMany()
+                        .WithMany("ToDoItems")
                         .HasForeignKey("ToDoItemGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ToDoApp.Models.ToDoItemGroup", null)
-                        .WithMany("ToDoItems")
-                        .HasForeignKey("ToDoItemGroupId1");
 
                     b.HasOne("ToDoApp.Models.ApplicationUser", "User")
                         .WithMany()

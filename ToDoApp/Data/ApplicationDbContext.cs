@@ -25,7 +25,7 @@ namespace ToDoApp.Data
 
             builder.Entity<ToDoItemGroup>()
                 .HasMany(p => p.ToDoItems)
-                .WithOne();
+                .WithOne(p => p.ToDoItemGroup).HasForeignKey(p => p.ToDoItemGroupId);
         }
 
         public DbSet<ToDoItem> ToDoItems { get; set; }

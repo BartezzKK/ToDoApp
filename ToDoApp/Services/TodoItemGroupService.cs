@@ -7,39 +7,9 @@ using ToDoApp.Models;
 
 namespace ToDoApp.Services
 {
-    public class ToDoService : IToDoService
+    public class TodoItemGroupService : ITodoItemGroupService
     {
-        private ToDoRepository<ToDoItem> toDoItemRepo;
-        private ToDoRepository<ToDoItemGroup> toDoItemGroupRepo;
-        public async Task AddItemAsync(ToDoItem toDoItem)
-        {
-           await toDoItemRepo.AddAsync(toDoItem);
-           await toDoItemRepo.SaveAsync();
-        }
-
-        public async Task DeleteItemAsync(ToDoItem toDoItem)
-        {
-            toDoItemRepo.Delete(toDoItem);
-            await toDoItemRepo.SaveAsync();
-        }
-
-        public async Task<ToDoItem> GetToDoItemByIdAsync(int id)
-        {
-            return await toDoItemRepo.GetByIdAsync(id);
-        }
-
-        public async Task<IReadOnlyList<ToDoItem>> ListAllItemsAsync()
-        {
-            return await toDoItemRepo.ListAllAsync();
-        }
-
-        public async Task UpdateItemAsync(ToDoItem toDoItem)
-        {
-            toDoItemRepo.Update(toDoItem);
-            await toDoItemRepo.SaveAsync();
-        }
-
-        //ToDoItemGroup methods
+        private Repository<ToDoItemGroup> toDoItemGroupRepo;
         public async Task AddGroupAsync(ToDoItemGroup toDoItemGroup)
         {
             await toDoItemGroupRepo.AddAsync(toDoItemGroup);
@@ -56,7 +26,7 @@ namespace ToDoApp.Services
             await toDoItemGroupRepo.SaveAsync();
         }
 
-        public async  Task DeleteItemGroupAsync(ToDoItemGroup toDoItemGroup)
+        public async Task DeleteItemGroupAsync(ToDoItemGroup toDoItemGroup)
         {
             toDoItemGroupRepo.Delete(toDoItemGroup);
             await toDoItemGroupRepo.SaveAsync();
