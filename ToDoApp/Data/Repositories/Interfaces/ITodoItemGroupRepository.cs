@@ -6,7 +6,7 @@ using ToDoApp.Models;
 
 namespace ToDoApp.Data.Repositories.Interfaces
 {
-    interface ITodoItemGroupRepository : IRepository<ToDoItemGroup>
+    public interface ITodoItemGroupRepository : IRepository<ToDoItemGroup>
     {
     }
 }

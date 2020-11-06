@@ -34,16 +34,16 @@ namespace ToDoApp.Controllers
 
         // GET <ToDoItemController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<ToDoItem>> Get()
         {
-            return "value";
+            return await toDoService.GetToDoItemByIdAsync(1);
         }
 
         // POST <ToDoItemController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<ToDoItem>> CreateItem(ToDoItem item)
         {
-
+            return await toDoService.AddItemAsync(item);
         }
 
         // PUT <ToDoItemController>/5

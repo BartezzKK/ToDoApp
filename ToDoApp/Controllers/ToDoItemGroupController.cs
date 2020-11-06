@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ToDoApp.DTO;
+using ToDoApp.Models;
+using ToDoApp.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,12 +16,20 @@ namespace ToDoApp.Controllers
     [ApiController]
     public class ToDoItemGroupController : ControllerBase
     {
+        private readonly ITodoItemGroupService todoItemGroupService;
+        private readonly ILogger<ToDoItemGroupController> logger;
 
+        public ToDoItemGroupController(ITodoItemGroupService todoItemGroupService, ILogger<ToDoItemGroupController> logger)
+        {
+            this.todoItemGroupService = todoItemGroupService;
+            this.logger = logger;
+        }
         // GET: <ToDoItemGroupController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<ToDoItemGroupDTO>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var result = await todoItemGroupService.ListAllGroupAsync();
+            return result.Select(ToDoItemGroupDTO.ConvertIntoToDoItemGroupDTO);
         }
 
         // GET <ToDoItemGroupController>/5

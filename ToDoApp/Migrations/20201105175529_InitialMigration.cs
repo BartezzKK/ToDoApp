@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ToDoApp.Data.Migrations
+namespace ToDoApp.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -186,6 +186,58 @@ namespace ToDoApp.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ToDoItemGroups",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ToDoItemGroups", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ToDoItemGroups_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ToDoItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    ModificationDate = table.Column<DateTime>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    IsDone = table.Column<bool>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    ToDoItemGroupId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ToDoItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ToDoItems_ToDoItemGroups_ToDoItemGroupId",
+                        column: x => x.ToDoItemGroupId,
+                        principalTable: "ToDoItemGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ToDoItems_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -245,6 +297,21 @@ namespace ToDoApp.Data.Migrations
                 name: "IX_PersistedGrants_SubjectId_ClientId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "ClientId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ToDoItemGroups_UserId",
+                table: "ToDoItemGroups",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ToDoItems_ToDoItemGroupId",
+                table: "ToDoItems",
+                column: "ToDoItemGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ToDoItems_UserId",
+                table: "ToDoItems",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -271,7 +338,13 @@ namespace ToDoApp.Data.Migrations
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
+                name: "ToDoItems");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "ToDoItemGroups");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -15,9 +15,10 @@ namespace ToDoApp.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task AddAsync(T entity)
+        public async Task<T> AddAsync(T entity)
         {
            await _dbContext.Set<T>().AddAsync(entity);
+            return entity;
         }
 
         public async Task Delete(T entity)

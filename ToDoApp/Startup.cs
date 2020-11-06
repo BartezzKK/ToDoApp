@@ -41,12 +41,10 @@ namespace ToDoApp
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
-
-            services.AddTransient<IRepository<ToDoItem>, Repository<ToDoItem>>();
-            services.AddTransient<IRepository<ToDoItemGroup>, Repository<ToDoItemGroup>>();
-            services.AddTransient<ITodoItemRepository, TodoItemRepository>();
             services.AddTransient<ITodoItemService, TodoItemService>();
             services.AddTransient<ITodoItemGroupService, TodoItemGroupService>();
+            services.AddTransient<ITodoItemRepository, TodoItemRepository>();
+            services.AddTransient<ITodoItemGroupRepository, TodoItemGroupRepository>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             // In production, the Angular files will be served from this directory

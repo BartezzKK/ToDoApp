@@ -25,7 +25,7 @@ namespace ToDoApp.DTO
             {
                 Id = Id,
                 Name = Name,
-                //UserId = UserId ?? 0
+                //UserId = UserId
             };
         }
 

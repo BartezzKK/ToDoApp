@@ -1,0 +1,19 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="color:red; font-weight:bold" *ngFor="let item of items" [ngStyle]="item.isDone && {'color': 'green', 'font-weight': 'bold'}">
+
+      <td>{{item.id}}</td>
+      <td>{{item.title}}</td>
+      <td>{{item.description}}</td>
+      <td><button class="btn-primary">Completed</button></td>
+    </tr>
+  </tbody>
+</table>

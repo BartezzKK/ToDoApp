@@ -1,40 +1,48 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ToDoApp.Data.Repositories;
+using ToDoApp.Data.Repositories.Interfaces;
 using ToDoApp.Models;
 
 namespace ToDoApp.Services
 {
     public class TodoItemService : ITodoItemService
     {
-        private Repository<ToDoItem> toDoItemRepo;
+        //private Repository<ToDoItem> toDoItemRepo;
+        private readonly ITodoItemRepository _todoItemRepository;
 
-        public async Task AddItemAsync(ToDoItem toDoItem)
+        public TodoItemService(ITodoItemRepository todoItemRepository)
         {
-            await toDoItemRepo.AddAsync(toDoItem);
-            await toDoItemRepo.SaveAsync();
+            _todoItemRepository = todoItemRepository;
+        }
+
+        public async Task<ToDoItem> AddItemAsync(ToDoItem toDoItem)
+        {
+            await _todoItemRepository.AddAsync(toDoItem);
+            //await _todoItemRepository.SaveAsync();
+            return await _todoItemRepository.AddAsync(toDoItem);
         }
 
         public async Task DeleteItemAsync(ToDoItem toDoItem)
         {
-            toDoItemRepo.Delete(toDoItem);
-            await toDoItemRepo.SaveAsync();
+            await _todoItemRepository.Delete(toDoItem);
+            //await _todoItemRepository.SaveAsync();
         }
 
         public async Task<ToDoItem> GetToDoItemByIdAsync(int id)
         {
-            return await toDoItemRepo.GetByIdAsync(id);
+            return await _todoItemRepository.GetByIdAsync(id);
         }
 
         public async Task<IReadOnlyList<ToDoItem>> ListAllItemsAsync()
         {
-            return await toDoItemRepo.ListAllAsync();
+            return await _todoItemRepository.ListAllAsync();
         }
 
         public async Task UpdateItemAsync(ToDoItem toDoItem)
         {
-            toDoItemRepo.Update(toDoItem);
-            await toDoItemRepo.SaveAsync();
+            await _todoItemRepository.Update(toDoItem);
+            //await _todoItemRepository.SaveAsync();
         }
     }
 }

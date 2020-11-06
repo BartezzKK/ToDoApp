@@ -19,6 +19,7 @@ namespace ToDoApp.DTO
         public string Description { get; set; }
         public int ToDoItemGroupId { get; set; }
         public string UserId { get; set; }
+        public bool IsDone { get; set; }
         public ToDoItemGroup ToDoItemGroup { get; set; }
 
         public ToDoItem ConvertIntoToDoItem()
@@ -28,7 +29,8 @@ namespace ToDoApp.DTO
                 Id = Id,
                 Title = Title,
                 Description = Description,
-                ToDoItemGroupId = ToDoItemGroupId
+                ToDoItemGroupId = ToDoItemGroupId,
+                IsDone = IsDone
             };
         }
 
@@ -43,6 +45,7 @@ namespace ToDoApp.DTO
                 ToDoItemGroupId = toDoItem.ToDoItemGroupId,
                 UserId = toDoItem.UserId,
                 ToDoItemGroup = toDoItem.ToDoItemGroup,
+                IsDone = toDoItem.IsDone
             };
 
             return toDoItemDTO;

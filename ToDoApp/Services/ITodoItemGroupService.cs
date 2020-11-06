@@ -6,7 +6,7 @@ using ToDoApp.Models;
 
 namespace ToDoApp.Services
 {
-    interface ITodoItemGroupService
+    public interface ITodoItemGroupService
     {
         Task<ToDoItemGroup> GetToDoItemGroupByIdAsync(int id);
         Task AddItemGroupAsync(ToDoItemGroup toDoItem);

@@ -13,6 +13,7 @@ import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { ToDoGroupComponent } from './to-do-group/to-do-group.component';
+import { TodoItemComponent } from './todo-item/todo-item.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ToDoGroupComponent } from './to-do-group/to-do-group.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    ToDoGroupComponent
+    ToDoGroupComponent,
+    TodoItemComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
