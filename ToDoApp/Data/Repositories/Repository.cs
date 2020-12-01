@@ -15,16 +15,19 @@ namespace ToDoApp.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<T> AddAsync(T entity)
+        public async Task AddAsync(T entity)
         {
+            if(entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
            await _dbContext.Set<T>().AddAsync(entity);
-            return entity;
         }
 
-        public async Task Delete(T entity)
+        public void Delete(T entity)
         {
-            _dbContext.Set<T>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.Set<T>().Remove(entity);            
         }
 
         public async Task<T> GetByIdAsync(int id)
@@ -37,10 +40,9 @@ namespace ToDoApp.Data.Repositories
             return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public async Task Update(T entity)
+        public void Update(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<int> SaveAsync()

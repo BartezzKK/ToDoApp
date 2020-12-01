@@ -1,2 +1,19 @@
-<label>Group name</label>
-<input type="text" value="" />
+<!--<form #postGroup="ngForm" (ngSubmit)="addGroup()">-->
+  <label>Group name</label>
+  <input (keyup.enter)="addGroup(groupName)" #groupName type="text" class="form-control" name="groupName"/>
+  <button type="submit" class="btn btn-primary">Add Group</button>
+<!--</form>-->
+
+<br/>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name of Group</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let group of groups">
+      <td>{{group.name}}</td>
+    </tr>
+  </tbody>
+</table>

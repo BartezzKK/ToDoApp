@@ -12,8 +12,5 @@ namespace ToDoApp.Services
         Task DeleteItemAsync(ToDoItem toDoItem);
         Task UpdateItemAsync(ToDoItem toDoItem);
         Task<IReadOnlyList<ToDoItem>> ListAllItemsAsync();
-
-        
-
     }
 }

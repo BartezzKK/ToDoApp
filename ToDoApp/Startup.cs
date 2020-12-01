@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using ToDoApp.Data;
@@ -14,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using ToDoApp.Data.Repositories;
 using ToDoApp.Data.Repositories.Interfaces;
 using ToDoApp.Services;
+using AutoMapper;
+using System;
 
 namespace ToDoApp
 {
@@ -41,6 +40,9 @@ namespace ToDoApp
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddTransient<ITodoItemService, TodoItemService>();
             services.AddTransient<ITodoItemGroupService, TodoItemGroupService>();
             services.AddTransient<ITodoItemRepository, TodoItemRepository>();

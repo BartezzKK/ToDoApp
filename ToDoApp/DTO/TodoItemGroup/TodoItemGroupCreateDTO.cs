@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using ToDoApp.Models;
 
-namespace ToDoApp.DTO
+namespace ToDoApp.DTO.TodoItemGroup
 {
-    public class ToDoItemGroupDTO
+    public class ToDoItemGroupCreateDTO
     {
-        public ToDoItemGroupDTO()
+        public ToDoItemGroupCreateDTO()
         {
 
         }
@@ -29,9 +29,9 @@ namespace ToDoApp.DTO
             };
         }
 
-        public static ToDoItemGroupDTO ConvertIntoToDoItemGroupDTO(ToDoItemGroup toDoItemGroup)
+        public static ToDoItemGroupCreateDTO ConvertIntoToDoItemGroupDTO(ToDoItemGroup toDoItemGroup)
         {
-            var toDoItemGroupDTO = new ToDoItemGroupDTO
+            var toDoItemGroupDTO = new ToDoItemGroupCreateDTO
             {
                 Id = toDoItemGroup.Id,
                 Name = toDoItemGroup.Name,

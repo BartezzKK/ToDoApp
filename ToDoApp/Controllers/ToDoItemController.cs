@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ToDoApp.DTO;
+using ToDoApp.DTO.TodoItem;
 using ToDoApp.Models;
 using ToDoApp.Services;
 
@@ -18,44 +19,76 @@ namespace ToDoApp.Controllers
     {
         private readonly ITodoItemService toDoService;
         private readonly ILogger<ToDoItemController> logger;
+        private readonly IMapper mapper;
 
-        public ToDoItemController(ITodoItemService toDoService, ILogger<ToDoItemController> logger)
+        public ToDoItemController(ITodoItemService toDoService, ILogger<ToDoItemController> logger, IMapper mapper)
         {
             this.toDoService = toDoService;
             this.logger = logger;
+            this.mapper = mapper;
         }
+
         // GET: <ToDoItemController>
         [HttpGet]
-        public async Task<IEnumerable<ToDoItemDTO>> GetAsync()
+        public async Task<IEnumerable<TodoItemReadDTO>> GetAsync() 
         {
             var result = await toDoService.ListAllItemsAsync();
-            return result.Select(ToDoItemDTO.ConvertIntoToDoItemDTO);
+            return mapper.Map<IEnumerable<TodoItemReadDTO>>(result);
         }
 
         // GET <ToDoItemController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ToDoItem>> Get()
+        public async Task<ActionResult<TodoItemReadDTO>> Get(int id)
         {
-            return await toDoService.GetToDoItemByIdAsync(1);
+            var result = await toDoService.GetToDoItemByIdAsync(id);
+            if (result != null)
+            {
+                return Ok(mapper.Map<TodoItemReadDTO>(result));
+            }
+            else return NotFound();
+            
         }
 
         // POST <ToDoItemController>
         [HttpPost]
-        public async Task<ActionResult<ToDoItem>> CreateItem(ToDoItem item)
+        public async Task<ActionResult<TodoItemCreateDTO>> CreateItem(TodoItemCreateDTO dtoItem)
         {
-            return await toDoService.AddItemAsync(item);
+            var result =  mapper.Map<ToDoItem>(dtoItem);
+            await toDoService.AddItemAsync(result);
+
+            var todoItemCreate = mapper.Map<TodoItemCreateDTO>(result);
+
+            return Ok(todoItemCreate);
         }
 
         // PUT <ToDoItemController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(int id, [FromBody] TodoItemCreateDTO dtoItem)
         {
+            var item = await toDoService.GetToDoItemByIdAsync(id);
+            if(item == null)
+            {
+                return NotFound();
+            }
+            mapper.Map(dtoItem, item);
+
+            await toDoService.UpdateItemAsync(item);
+            return NoContent();
         }
 
         // DELETE <ToDoItemController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            var item = await toDoService.GetToDoItemByIdAsync(id);
+
+            if(item == null)
+            {
+                return NotFound();
+            }
+
+            await toDoService.DeleteItemAsync(item);
+            return Ok();
         }
     }
 }

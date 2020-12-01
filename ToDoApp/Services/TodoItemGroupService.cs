@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ToDoApp.Data.Repositories;
 using ToDoApp.Data.Repositories.Interfaces;
 using ToDoApp.Models;
 
@@ -10,40 +7,45 @@ namespace ToDoApp.Services
 {
     public class TodoItemGroupService : ITodoItemGroupService
     {
-        private ITodoItemGroupRepository _toDoItemGroupRepo;
+        private ITodoItemGroupRepository todoItemGroupRepository;
 
         public TodoItemGroupService(ITodoItemGroupRepository todoItemGroupRepository)
         {
-            _toDoItemGroupRepo = todoItemGroupRepository;
+            this.todoItemGroupRepository = todoItemGroupRepository;
         }
+
         public async Task AddGroupAsync(ToDoItemGroup toDoItemGroup)
         {
-            await _toDoItemGroupRepo.AddAsync(toDoItemGroup);
+            await todoItemGroupRepository.AddAsync(toDoItemGroup);
         }
 
         public async Task<ToDoItemGroup> GetToDoItemGroupByIdAsync(int id)
         {
-            return await _toDoItemGroupRepo.GetByIdAsync(id);
+            return await todoItemGroupRepository.GetByIdAsync(id);
         }
 
-        public async Task AddItemGroupAsync(ToDoItemGroup toDoItemGroup)
+        public async Task<ToDoItemGroup> AddItemGroupAsync(ToDoItemGroup toDoItemGroup)
         {
-            await _toDoItemGroupRepo.AddAsync(toDoItemGroup);
+            await todoItemGroupRepository.AddAsync(toDoItemGroup);
+            await todoItemGroupRepository.SaveAsync();
+            return toDoItemGroup;
         }
 
         public async Task DeleteItemGroupAsync(ToDoItemGroup toDoItemGroup)
         {
-            await _toDoItemGroupRepo.Delete(toDoItemGroup);
+            todoItemGroupRepository.Delete(toDoItemGroup);
+            await todoItemGroupRepository.SaveAsync();
         }
 
         public async Task UpdateItemGroupAsync(ToDoItemGroup toDoItemGroup)
         {
-            await _toDoItemGroupRepo.Update(toDoItemGroup);
+            todoItemGroupRepository.Update(toDoItemGroup);
+            await todoItemGroupRepository.SaveAsync();
         }
 
         public async Task<IReadOnlyList<ToDoItemGroup>> ListAllGroupAsync()
         {
-            return await _toDoItemGroupRepo.ListAllAsync();
+            return await todoItemGroupRepository.ListAllAsync();
         }
     }
 }

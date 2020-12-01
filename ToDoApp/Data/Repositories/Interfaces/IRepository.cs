@@ -5,10 +5,11 @@ namespace ToDoApp.Data.Repositories
 {
     public interface IRepository<T>
     {
-        Task<T> AddAsync(T entity);
+        Task AddAsync(T entity);
         Task<T> GetByIdAsync(int id);
         Task<IReadOnlyList<T>> ListAllAsync();
-        Task Delete(T entity);
-        Task Update(T entity);
+        void Delete(T entity);
+        void Update(T entity);
+        Task<int> SaveAsync();
     }
 }

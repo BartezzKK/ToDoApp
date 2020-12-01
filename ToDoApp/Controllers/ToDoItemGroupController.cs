@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ToDoApp.DTO;
+using ToDoApp.DTO.TodoItemGroup;
 using ToDoApp.Models;
 using ToDoApp.Services;
 
@@ -18,43 +19,73 @@ namespace ToDoApp.Controllers
     {
         private readonly ITodoItemGroupService todoItemGroupService;
         private readonly ILogger<ToDoItemGroupController> logger;
+        private readonly IMapper mapper;
 
-        public ToDoItemGroupController(ITodoItemGroupService todoItemGroupService, ILogger<ToDoItemGroupController> logger)
+        public ToDoItemGroupController(ITodoItemGroupService todoItemGroupService,
+            ILogger<ToDoItemGroupController> logger,
+            IMapper mapper)
         {
             this.todoItemGroupService = todoItemGroupService;
             this.logger = logger;
+            this.mapper = mapper;
         }
         // GET: <ToDoItemGroupController>
         [HttpGet]
-        public async Task<IEnumerable<ToDoItemGroupDTO>> Get()
+        public async Task<IEnumerable<TodoItemGroupReadDTO>> GetAllAsync()
         {
             var result = await todoItemGroupService.ListAllGroupAsync();
-            return result.Select(ToDoItemGroupDTO.ConvertIntoToDoItemGroupDTO);
+            return mapper.Map<IEnumerable<TodoItemGroupReadDTO>>(result);
         }
 
         // GET <ToDoItemGroupController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<ToDoItemGroup>> Get(int id)
         {
-            return "value";
+           var result = await todoItemGroupService.GetToDoItemGroupByIdAsync(id);
+            if (result != null)
+            {
+                return Ok(mapper.Map<TodoItemGroupReadDTO>(result));
+            }
+            else return NotFound();
         }
 
         // POST <ToDoItemGroupController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<ToDoItemGroupCreateDTO>> CreateGroup(ToDoItemGroupCreateDTO dtoItemGroup)
         {
+            var result = mapper.Map<ToDoItemGroup>(dtoItemGroup);
+            await todoItemGroupService.AddItemGroupAsync(result);
+
+            var todoItemGroupCreate = mapper.Map<ToDoItemGroupCreateDTO>(result);
+            return Ok(todoItemGroupCreate);
         }
 
         // PUT <ToDoItemGroupController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(int id, [FromBody] ToDoItemGroupCreateDTO dtoGroup)
         {
+            var group = await todoItemGroupService.GetToDoItemGroupByIdAsync(id);
+            if(group == null)
+            {
+                return NotFound();
+            }
+            mapper.Map(dtoGroup, group);
+
+            await todoItemGroupService.UpdateItemGroupAsync(group);
+            return NoContent();
         }
 
         // DELETE <ToDoItemGroupController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            var item = await todoItemGroupService.GetToDoItemGroupByIdAsync(id);
+            if(item == null)
+            {
+                return NotFound();
+            }
+            await todoItemGroupService.DeleteItemGroupAsync(item);
+            return Ok();
         }
     }
 }

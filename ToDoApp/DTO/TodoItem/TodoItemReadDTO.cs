@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using ToDoApp.Models;
 
-namespace ToDoApp.DTO
+namespace ToDoApp.DTO.TodoItem
 {
-    public class ToDoItemDTO
+    public class TodoItemReadDTO
     {
-        public ToDoItemDTO()
+        public TodoItemReadDTO()
         {
 
         }
@@ -34,9 +34,9 @@ namespace ToDoApp.DTO
             };
         }
 
-        public static ToDoItemDTO ConvertIntoToDoItemDTO(ToDoItem toDoItem)
+        public static TodoItemReadDTO ConvertIntoToDoItemDTO(ToDoItem toDoItem)
         {
-            var toDoItemDTO = new ToDoItemDTO
+            var toDoItemDTO = new TodoItemReadDTO
             {
                 Id = toDoItem.Id,
                 CreateDate = toDoItem.CreateDate,
