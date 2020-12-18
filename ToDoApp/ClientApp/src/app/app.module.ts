@@ -14,6 +14,9 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { ToDoGroupComponent } from './to-do-group/to-do-group.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
+import { AddItemComponent } from './add-item/add-item.component';
+import { AddItemGroupComponent } from './add-item-group/add-item-group.component';
+import { EditItemGroupComponent } from './edit-item-group/edit-item-group.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
     CounterComponent,
     FetchDataComponent,
     ToDoGroupComponent,
-    TodoItemComponent
+    TodoItemComponent,
+    AddItemComponent,
+    AddItemGroupComponent,
+    EditItemGroupComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,7 +39,9 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'to-do-group', component: ToDoGroupComponent },
+      //{ path: 'to-do-group', component: ToDoGroupComponent },
+      { path: 'add-item-group', component: AddItemGroupComponent },
+      { path: 'editItemGroup/:id', component: EditItemGroupComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
     ])
   ],

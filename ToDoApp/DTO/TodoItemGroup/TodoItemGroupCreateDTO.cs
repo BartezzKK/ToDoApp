@@ -9,10 +9,6 @@ namespace ToDoApp.DTO.TodoItemGroup
 {
     public class ToDoItemGroupCreateDTO
     {
-        public ToDoItemGroupCreateDTO()
-        {
-
-        }
 
         public int Id { get; set; }
         public string Name { get; set; }
@@ -29,16 +25,16 @@ namespace ToDoApp.DTO.TodoItemGroup
             };
         }
 
-        public static ToDoItemGroupCreateDTO ConvertIntoToDoItemGroupDTO(ToDoItemGroup toDoItemGroup)
-        {
-            var toDoItemGroupDTO = new ToDoItemGroupCreateDTO
-            {
-                Id = toDoItemGroup.Id,
-                Name = toDoItemGroup.Name,
-                //UserId =  toDoItemGroup.UserId
-            };
+        //public static ToDoItemGroupCreateDTO ConvertIntoToDoItemGroupDTO(ToDoItemGroup toDoItemGroup)
+        //{
+        //    var toDoItemGroupDTO = new ToDoItemGroupCreateDTO
+        //    {
+        //        Id = toDoItemGroup.Id,
+        //        Name = toDoItemGroup.Name,
+        //        //UserId =  toDoItemGroup.UserId
+        //    };
 
-            return toDoItemGroupDTO;
-        }
+        //    return toDoItemGroupDTO;
+        //}
     }
 }

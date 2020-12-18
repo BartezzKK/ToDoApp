@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ToDoApp.DTO.TodoItem;
@@ -20,12 +21,14 @@ namespace ToDoApp.Controllers
         private readonly ITodoItemService toDoService;
         private readonly ILogger<ToDoItemController> logger;
         private readonly IMapper mapper;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public ToDoItemController(ITodoItemService toDoService, ILogger<ToDoItemController> logger, IMapper mapper)
+        public ToDoItemController(ITodoItemService toDoService, ILogger<ToDoItemController> logger, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             this.toDoService = toDoService;
             this.logger = logger;
             this.mapper = mapper;
+            this.userManager = userManager;
         }
 
         // GET: <ToDoItemController>
@@ -53,17 +56,19 @@ namespace ToDoApp.Controllers
         [HttpPost]
         public async Task<ActionResult<TodoItemCreateDTO>> CreateItem(TodoItemCreateDTO dtoItem)
         {
+            ApplicationUser applicationUser = await userManager.GetUserAsync(User);
+            dtoItem.UserId = applicationUser.Id;
             var result =  mapper.Map<ToDoItem>(dtoItem);
             await toDoService.AddItemAsync(result);
 
-            var todoItemCreate = mapper.Map<TodoItemCreateDTO>(result);
+            var todoItemCreate = mapper.Map<TodoItemReadDTO>(result);
 
             return Ok(todoItemCreate);
         }
 
         // PUT <ToDoItemController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] TodoItemCreateDTO dtoItem)
+        public async Task<ActionResult> Put(int id, [FromBody] TodoItemUpdateDTO dtoItem)
         {
             var item = await toDoService.GetToDoItemByIdAsync(id);
             if(item == null)

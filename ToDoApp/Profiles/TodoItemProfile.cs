@@ -15,6 +15,7 @@ namespace ToDoApp.Profiles
             CreateMap<ToDoItem, TodoItemReadDTO>();
             CreateMap<TodoItemCreateDTO, ToDoItem>();
             CreateMap<TodoItemUpdateDTO, ToDoItem>();
+            CreateMap<ToDoItem, TodoItemCreateDTO>();
         }
     }
 }

@@ -53,17 +53,25 @@ namespace ToDoApp.Controllers
         [HttpPost]
         public async Task<ActionResult<ToDoItemGroupCreateDTO>> CreateGroup(ToDoItemGroupCreateDTO dtoItemGroup)
         {
+            if(dtoItemGroup == null)
+            { 
+                return UnprocessableEntity();
+            }
             var result = mapper.Map<ToDoItemGroup>(dtoItemGroup);
             await todoItemGroupService.AddItemGroupAsync(result);
 
-            var todoItemGroupCreate = mapper.Map<ToDoItemGroupCreateDTO>(result);
-            return Ok(todoItemGroupCreate);
+            var createdItemGroup = mapper.Map<TodoItemGroupReadDTO>(result);
+            return Ok(createdItemGroup);
         }
 
         // PUT <ToDoItemGroupController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] ToDoItemGroupCreateDTO dtoGroup)
         {
+            // sprawdzić dlaczego angular nie przekazuje tego id do dtoGroup
+
+
+            dtoGroup.Id = id;
             var group = await todoItemGroupService.GetToDoItemGroupByIdAsync(id);
             if(group == null)
             {

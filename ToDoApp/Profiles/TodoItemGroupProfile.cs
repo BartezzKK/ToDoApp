@@ -19,6 +19,7 @@ namespace ToDoApp.Profiles
             CreateMap<ToDoItemGroupCreateDTO, ToDoItemGroup>();
             //mapping data from dto into domain for update
             CreateMap<TodoItemGroupUpdateDTO, ToDoItemGroup>();
+            //mapping to result of post domain -> dto
         }
     }
 }

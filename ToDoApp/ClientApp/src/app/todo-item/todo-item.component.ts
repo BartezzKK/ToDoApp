@@ -1,18 +1,29 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ItemService } from '../services/item.service';
 
 @Component({
   selector: 'app-todo-item',
   templateUrl: './todo-item.component.html',
   styleUrls: ['./todo-item.component.css']
 })
-export class TodoItemComponent{
+export class TodoItemComponent implements OnInit{
   public items: TodoItems[];
-    constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-      http.get<TodoItems[]>(baseUrl + 'todoitem').subscribe(result => {
-        this.items = result;
-      }, error => console.error(error));
+  constructor(private itemService: ItemService) {}
+
+  ngOnInit() {
+    this.itemService.getData().subscribe((data: TodoItems[]) => {
+      this.items = data;
+    })
   }
+
+  deleteItem(item) {
+    this.itemService.deleteData(item.id).subscribe(response => {
+      let index = this.items.indexOf(item);
+      this.items.splice(index, 1);
+    });
+  }
+
  }
 
 interface TodoItems {

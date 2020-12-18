@@ -1,13 +1,14 @@
-import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable} from '@angular/core';
 import { DataService } from './DataService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ItemGroupService extends DataService {
-  
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    super(baseUrl, http);
-  }
+export class ItemGroupService extends DataService{
+
+  constructor(httpClient: HttpClient) {
+    super('https://localhost:44381/todoitemgroup', httpClient);}
+
+   
 }

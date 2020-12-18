@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ToDoApp.Data.Repositories.Interfaces;
 using ToDoApp.Models;
@@ -8,14 +9,17 @@ namespace ToDoApp.Services
     public class TodoItemService : ITodoItemService
     {
         private readonly ITodoItemRepository todoItemRepository;
+       
 
         public TodoItemService(ITodoItemRepository todoItemRepository)
         {
             this.todoItemRepository = todoItemRepository;
+            
         }
 
         public async Task<ToDoItem> AddItemAsync(ToDoItem toDoItem)
         {
+            toDoItem.CreateDate = DateTime.Now;
             await todoItemRepository.AddAsync(toDoItem);
             await todoItemRepository.SaveAsync();
             return toDoItem;

@@ -42,6 +42,7 @@ namespace ToDoApp.Data.Repositories
 
         public void Update(T entity)
         {
+
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
 

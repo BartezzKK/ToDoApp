@@ -6,6 +6,7 @@
       <th>Title</th>
       <th>Description</th>
       <th>Status</th>
+      <th>Remove</th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,7 @@
       <td>{{item.title}}</td>
       <td>{{item.description}}</td>
       <td><button class="btn-primary">Completed</button></td>
+      <td style="text-align:center"><button (click)="deleteItem(item)" class="btn-danger">X</button></td>
     </tr>
   </tbody>
 </table>

@@ -1,0 +1,7 @@
+<form #itemGroupForm="ngForm" (ngSubmit)="addItemGroup(itemGroupForm.value)">
+  <label>Group name</label>
+  <input name="name" type="text"class="form-control" [(ngModel)]="name"/>
+  <label>User Id d048e1b6-cd68-488c-b6cf-d5720f1dde93</label>
+  <input class="form-control" type="text" name="userId" [(ngModel)]="userId" />
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
