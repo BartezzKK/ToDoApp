@@ -10,13 +10,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr style="color:red; font-weight:bold" *ngFor="let item of items" [ngStyle]="item.isDone && {'color': 'green', 'font-weight': 'bold'}">
+    <tr @fade style="color:red; font-weight:bold" *ngFor="let item of items" [ngStyle]="item.isDone && {'color': 'green', 'font-weight': 'bold'}">
 
       <td>{{item.id}}</td>
       <td>{{item.title}}</td>
       <td>{{item.description}}</td>
       <td><button class="btn-primary">Completed</button></td>
-      <td style="text-align:center"><button (click)="deleteItem(item)" class="btn-danger">X</button></td>
+      <td style="text-align:center"><button type="button" @fade (click)="deleteItem(item)" class="btn-danger">X</button></td>
     </tr>
   </tbody>
 </table>

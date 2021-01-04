@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using ToDoApp.DTO.TodoItem;
 using ToDoApp.Models;
 using ToDoApp.Services;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -56,8 +57,9 @@ namespace ToDoApp.Controllers
         [HttpPost]
         public async Task<ActionResult<TodoItemCreateDTO>> CreateItem(TodoItemCreateDTO dtoItem)
         {
-            ApplicationUser applicationUser = await userManager.GetUserAsync(User);
-            dtoItem.UserId = applicationUser.Id;
+           
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            dtoItem.UserId = userId;
             var result =  mapper.Map<ToDoItem>(dtoItem);
             await toDoService.AddItemAsync(result);
 

@@ -8,7 +8,7 @@ import { ItemGroupService } from '../services/item-group.service';
   styleUrls: ['./add-item-group.component.css']
 })
 export class AddItemGroupComponent{
-
+  public name;
   constructor(private groupService : ItemGroupService) { }
 
   public addItemGroup(input: HTMLInputElement) {

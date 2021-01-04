@@ -2,18 +2,19 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular
 import { Inject, Injectable } from "@angular/core";
 import { throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
-import { ToDoItemGroup } from "../to-do-group/to-do-group.component";
+import { ITodoItemGroup } from "../interfaces/itodo-item-group";
 
-@Injectable({
-  providedIn: 'root'
-})
+
+//@Injectable({
+//  providedIn: 'root'
+//})
 
 export class DataService {
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
 
-  constructor(@Inject(String) private url: string, private httpClient: HttpClient) { }
+  constructor( private url: string, private httpClient: HttpClient) { }
 
   public getData() {
     return this.httpClient.get(this.url)
@@ -21,7 +22,7 @@ export class DataService {
   }
 
   public getDataById(id: number) {
-    return this.httpClient.get<ToDoItemGroup>(this.url + '/' + id)
+    return this.httpClient.get<ITodoItemGroup>(this.url + '/' + id)
       .pipe(catchError(this.handleError));
   }
 

@@ -16,7 +16,7 @@ namespace ToDoApp.Data.Repositories
 
         public async Task<IReadOnlyList<ToDoItemGroup>> ListFilteredAsync(string userId)
         {
-            return await _dbContext.ToDoItemGroups.Where(p => p.UserId == userId).ToListAsync();
+            return await _dbContext.ToDoItemGroups.Where(p => p.UserId == userId).Include(i => i.ToDoItems).ToListAsync();
         } 
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using ToDoApp.DTO.TodoItemGroup;
 using ToDoApp.Models;
 using ToDoApp.Services;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -57,6 +58,8 @@ namespace ToDoApp.Controllers
             { 
                 return UnprocessableEntity();
             }
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            dtoItemGroup.UserId = userId;
             var result = mapper.Map<ToDoItemGroup>(dtoItemGroup);
             await todoItemGroupService.AddItemGroupAsync(result);
 

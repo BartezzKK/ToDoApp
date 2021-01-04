@@ -20,7 +20,7 @@ namespace ToDoApp.Models
         public DateTime CreateDate { get; set; }
         public string Name { get; set; }
         public string UserId { get; set; }
-        public ICollection<ToDoItem> ToDoItems { get; set; }
+        public ICollection<ToDoItem> ToDoItems { get; set; } = new HashSet<ToDoItem>();
 
         public ApplicationUser User { get; set; }
     }
