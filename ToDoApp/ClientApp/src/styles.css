@@ -14,3 +14,13 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.task-completed {
+    color:red;
+    font-weight: bold;
+}
+
+.task-not-completed {
+    color:green;
+    font-weight: bold;
+}

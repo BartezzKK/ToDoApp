@@ -21,7 +21,6 @@ export class EditItemGroupComponent implements OnInit{
     this.route.paramMap
       .subscribe(params => {
         this.idG = + params.get('id');
-        console.log(this.idG);
         this.getOneGroup();
       })
   }
@@ -33,21 +32,12 @@ export class EditItemGroupComponent implements OnInit{
     }
     )}
 
-  //public submit() {
-  //  this.router.navigate(['/']);
-  //}
-
   public addEditedGroup(input: HTMLInputElement) {
     this.groupService.updateData(this.idG, input)
       .subscribe(status => {
         console.log(JSON.stringify(status));
         this.router.navigate(['/']);
       });
-    console.log(status);
-    console.log("input element:");
-    console.log(input);
-    //this.submit();
-    //this.router.navigate(['/']);
   }
 
 }

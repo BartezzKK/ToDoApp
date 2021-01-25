@@ -1,10 +1,11 @@
 <form #todoItemForm="ngForm" (ngSubmit)="addItem(todoItemForm.value)">
   <label>Todo name</label>
-  <input required minlength="5" name="title" type="text"  class="form-control" [(ngModel)]="item.title" #title="ngModel"  />
+  <input required minlength="5" name="title" type="text" class="form-control" [(ngModel)]="item.title" #title="ngModel" />
   <div class="alert alert-danger" *ngIf="!title.valid && title.touched">Title required 3 characters</div>
   <label>Todo description</label>
-  <input name="description" type="text" class="form-control" [(ngModel)]="item.description"/>
-  <button type="submit" class="btn-primary">Click</button>
+  <input name="description" type="text" class="form-control" [(ngModel)]="item.description" />
+  <button type="submit" class="btn btn-primary">Click</button>
+  <button class="btn btn-warning" [routerLink]="['/']">Cancel</button>
 </form>
 
 <!--<form [formGroup]="itemFG" (ngSubmit)="onSubmit()">

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ITodoItem } from '../interfaces/itodo-item';
 import { ItemService } from '../services/item.service';
-import { ActivatedRoute, CanActivate } from '@angular/router';
+import { ActivatedRoute, CanActivate, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 //import 'rxjs/add/operator/filter';
@@ -13,7 +13,7 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
   styleUrls: ['./add-item.component.css']
 })
 export class AddItemComponent implements ITodoItem{
-  constructor(private itemService: ItemService, private route: ActivatedRoute) { }
+  constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router) { }
 
   queryParamsGroupId: number;
   id: number;
@@ -37,6 +37,7 @@ export class AddItemComponent implements ITodoItem{
     console.log(this.queryParamsGroupId);
     this.itemService.createData(item).subscribe(status => {
       console.log(JSON.stringify(status));
+      this.router.navigate(['/']);
     })
   }
 

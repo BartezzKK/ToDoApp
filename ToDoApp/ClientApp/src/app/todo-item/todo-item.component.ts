@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ItemService } from '../services/item.service';
 import { trigger, state, style, animate, animation, transition } from '@angular/animations';
 
@@ -26,6 +26,7 @@ import { trigger, state, style, animate, animation, transition } from '@angular/
   ]
 })
 export class TodoItemComponent implements OnInit{
+  @Input() idOfGroup: number;
   public items: TodoItems[];
   constructor(private itemService: ItemService) {}
 
@@ -42,11 +43,19 @@ export class TodoItemComponent implements OnInit{
     });
   }
 
+  completeTask(item: TodoItems) {
+    item.isDone = !item.isDone;
+    this.itemService.updateData(item.id, item).subscribe(result => {
+      console.log('Task state has been changed');
+    });
+  }
+
  }
 
 interface TodoItems {
   id: number,
   title: string,
   isDone: boolean,
-  description: string
+  description: string,
+  toDoItemGroupId: number
 }

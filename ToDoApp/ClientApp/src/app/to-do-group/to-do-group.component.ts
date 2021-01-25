@@ -20,20 +20,17 @@ export class ToDoGroupComponent implements OnInit, ITodoItemGroup{
 
   groups: ITodoItemGroup[];
   items: ITodoItem[];
-  //groups$;
 
   constructor(private groupServcice: ItemGroupService,
     private itemService: ItemService,
     private router: Router) { }
-    id: number;
-    name: string;
-    userId: string;
+
+  id: number;
+  name: string;
+  userId: string;
+  isExpanded: boolean;
 
   ngOnInit() {
-
-    //this.groups$ = this.groupServcice.getData().subscribe((data: ToDoItemGroup[]) => {
-    //  this.
-    //})
     this.groupServcice.getData().subscribe((data: ITodoItemGroup[]) => {
       this.groups = data;
     })
@@ -41,6 +38,18 @@ export class ToDoGroupComponent implements OnInit, ITodoItemGroup{
       this.items = data;
     })
   }
+
+  deleteGroup(id: number) {
+    this.groupServcice.deleteData(id).subscribe(result => {
+      this.groups.splice(id, 1);
+    });
+  }
+
+  toggle() {
+    this.isExpanded = !this.isExpanded;
+  }
+
+  
 }
 
 

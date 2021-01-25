@@ -5,13 +5,14 @@
 <!--</form>-->
 
 <br />
-<table class="table table-bordered table-hover">
+<i class="fas fa-home"></i>
+<table class="table table-bordered table-hover table-striped">
   <thead>
     <tr>
-      <th>Name of Group</th>
+      <th width="25%">Name of Group</th>
       <th>Edit</th>
       <th>Add</th>
-      <th>Details</th>
+      <th style="min-width:600px">Details</th>
     </tr>
   </thead>
   <tbody>
@@ -19,20 +20,34 @@
       <td>{{group.name}}</td>
       <td><button [routerLink]="['/editItemGroup/' + group.id]" class="btn btn-primary">Edit</button></td>
       <td width="25%"><button [routerLink]="['/add-item']" [queryParams]="{groupId : group.id}" class="btn btn-success">New Task</button></td>
-      <!--<td>
+      <td>
         <div class="zippy">
           <div class="zippy-heading" [class.expanded]="isExpanded" (click)="toggle()">
-            <span class="glyphicon" [ngClass]="{
-            'glyphicon-chevron-up' : isExpanded,
-            'glyphicon-chevron-down': !isExpanded
-    }"></span>
+            
+            <span class="fa" [ngClass]="{
+            'fa-angle-up' : isExpanded,
+            'fa-angle-down': !isExpanded
+             }"
+                  ></span>
           </div>
           <div *ngIf="isExpanded" class="zippy-body">
-            <app-todo-item></app-todo-item>
+            <app-todo-item idOfGroup="{{group.id}}"></app-todo-item>
           </div>
         </div>
-      </td>-->
-      <td><button><i class="fa fa-camera-retro fa-lg"></i></button></td>
+      </td>
+      <td><button class="btn-danger" (click)="deleteGroup(group.id)">Remove group</button></td>
     </tr>
   </tbody>
 </table>
+
+<!---->
+
+
+
+<!--<button type="button" data-toggle="collapse" [attr.data-target]="'#kupa'">
+  <i class="fa fa-angle-down"></i>
+</button>
+<div id="kupa" name="kupa" class="collapse">
+  <app-todo-item idOfGroup="{{group.id}}"></app-todo-item>
+</div>-->
+
