@@ -1,4 +1,6 @@
-<form #itemGroupForm="ngForm" (ngSubmit)="addItemGroup(itemGroupForm.value)">
+<custom-title title="{{pageTitle}}"></custom-title>
+
+<!--<form #itemGroupForm="ngForm" (ngSubmit)="addItemGroup(itemGroupForm.value)">
   <label><b>Group name</b></label>
   <input required min="3" name="name" placeholder="Sample group name" type="text"class="form-control" [(ngModel)]="name"/>
   <div class="alert alert-danger" *ngIf="!name.valid">
@@ -7,4 +9,16 @@
   <br />
   <button type="submit" class="btn btn-primary" style="padding:5px">Save group</button>
   <button class="btn btn-info" [routerLink]="['/']">Cancel</button>
+</form>-->
+
+
+<form #todoItemGroupForm="ngForm" (ngSubmit)="addItemGroup(todoItemGroupForm.value)">
+  <mat-form-field class="long-input" appearance="fill">
+    <mat-label>Group name</mat-label>
+    <input matInput type="text" name="name" required minlength="3" [(ngModel)]="todoGroup.name" #name="ngModel" />
+    <mat-error *ngIf="!name.valid && name.touched">Group name at least required 3 characters</mat-error>
+  </mat-form-field>
+  <br />
+  <button type="submit" mat-raised-button color="primary" [disabled]="!name.valid">Click</button>
+  <button mat-raised-button color="accent" [routerLink]="['/']">Cancel</button>
 </form>

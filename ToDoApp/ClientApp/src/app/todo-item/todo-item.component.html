@@ -4,11 +4,11 @@
      'task-completed' : !item.isDone,
      'task-not-completed' :item.isDone
      }">
-  <div @fade *ngIf="item.toDoItemGroupId ==  idOfGroup">
+  <div *ngIf="item.toDoItemGroupId ==  idOfGroup">
     <b>Title:</b>{{item.title}}
     <span class="float-right">
-      <button class="btn-primary" style="margin-right:5px" (click)="completeTask(item)">Completed</button>
-      <button type="button" (click)="deleteItem(item)" class="btn-danger"><i class="fa fa-trash"></i></button>
+      <button cmat-raised-button color="primary" style="margin-right:5px" (click)="completeTask(item)"><mat-icon aria-hidden="false">task</mat-icon></button>
+      <button mat-raised-button color="warn" (click)="deleteItem(item)" ><mat-icon aria-hidden="false">delete</mat-icon></button>
     </span><br />
     <b>Description:</b>{{item.description}}<br />
     <hr />

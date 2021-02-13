@@ -1,18 +1,28 @@
-<form #todoItemForm="ngForm" (ngSubmit)="addItem(todoItemForm.value)">
+
+<custom-title title="{{pageTitle}}"></custom-title>
+<!--<form #todoItemForm="ngForm" (ngSubmit)="addItem(todoItemForm.value)">
   <label>Todo name</label>
-  <input required minlength="5" name="title" type="text" class="form-control" [(ngModel)]="item.title" #title="ngModel" />
+  <input required minlength="3" name="title" type="text" class="form-control" [(ngModel)]="item.title" #title="ngModel" />
   <div class="alert alert-danger" *ngIf="!title.valid && title.touched">Title required 3 characters</div>
   <label>Todo description</label>
   <input name="description" type="text" class="form-control" [(ngModel)]="item.description" />
   <button type="submit" class="btn btn-primary">Click</button>
   <button class="btn btn-warning" [routerLink]="['/']">Cancel</button>
+</form>-->
+
+<form #todoItemForm="ngForm" (ngSubmit)="addItem(todoItemForm.value)">
+  <mat-form-field appearance="fill">
+    <mat-label>Todo name</mat-label>
+    <input matInput type="text" name="title" required minlength="3" [(ngModel)]="item.title" #title="ngModel" />
+    <mat-error *ngIf="!title.valid && title.touched">Title required 3 characters</mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field class="long-description" appearance="fill">
+    <mat-label>Todo description</mat-label>
+    <input matInput type="text" name="description" [(ngModel)]="item.description" />
+  </mat-form-field>
+  <br />
+  <button mat-raised-button color="primary" [disabled]="!title.valid">Click</button>
+  <button mat-raised-button color="accent" [routerLink]="['/']">Cancel</button>
 </form>
 
-<!--<form [formGroup]="itemFG" (ngSubmit)="onSubmit()">
-  <label>Todo name</label>
-  <input required minlength="5" name="titleFC" type="text" class="form-control" [(ngModel)]="itemFG.titleFC" #titleFC="ngModel" />
-  <div class="alert alert-danger" *ngIf="!titleFC.valid && titleFC.touched">Title required 3 characters</div>
-  <label>Todo description</label>
-  <input name="descriptionFC" type="text" class="form-control" [(ngModel)]="itemFG.descriptionFC" />
-  <button type="submit" class="btn-primary">Click</button>
-</form>-->

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,6 +18,8 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { AddItemGroupComponent } from './add-item-group/add-item-group.component';
 import { EditItemGroupComponent } from './edit-item-group/edit-item-group.component';
+import { MyTitleComponent } from './my-title/my-title.component';
+import { MatComponentsModule } from './mat-components.module'; 
 
 @NgModule({
   declarations: [
@@ -30,6 +32,10 @@ import { EditItemGroupComponent } from './edit-item-group/edit-item-group.compon
     TodoItemComponent,
     AddItemComponent,
     AddItemGroupComponent,
+    EditItemGroupComponent,
+    MyTitleComponent,
+  ],
+  entryComponents: [
     EditItemGroupComponent
   ],
   imports: [
@@ -38,6 +44,8 @@ import { EditItemGroupComponent } from './edit-item-group/edit-item-group.compon
     FormsModule,
     ApiAuthorizationModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatComponentsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },

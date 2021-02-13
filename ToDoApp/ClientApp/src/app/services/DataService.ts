@@ -22,7 +22,7 @@ export class DataService {
   }
 
   public getDataById(id: number) {
-    return this.httpClient.get<ITodoItemGroup>(this.url + '/' + id)
+    return this.httpClient.get(this.url + '/' + id)
       .pipe(catchError(this.handleError));
   }
 

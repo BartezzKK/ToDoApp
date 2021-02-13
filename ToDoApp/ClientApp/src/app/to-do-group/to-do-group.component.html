@@ -1,11 +1,5 @@
-<!--<form #postGroup="ngForm" (ngSubmit)="addGroup()">-->
-<!--<label>Group name</label>
-<input (keyup.enter)="addGroup(groupName)" #groupName type="text" class="form-control" name="groupName"/>
-<button type="submit" class="btn btn-primary">Add Group</button>-->
-<!--</form>-->
+<!--<mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>-->
 
-<br />
-<i class="fas fa-home"></i>
 <table class="table table-bordered table-hover table-striped">
   <thead>
     <tr>
@@ -16,38 +10,34 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let group of groups">
+    <tr @dissapearGroup *ngFor="let group of groups">
       <td>{{group.name}}</td>
-      <td><button [routerLink]="['/editItemGroup/' + group.id]" class="btn btn-primary">Edit</button></td>
-      <td width="25%"><button [routerLink]="['/add-item']" [queryParams]="{groupId : group.id}" class="btn btn-success">New Task</button></td>
+      <td><button [routerLink]="['/editItemGroup/' + group.id]" color="primary" mat-raised-button>Edit</button></td>
+      <!--<td>--><!--<button (click)="openDialog()" class="btn btn-primary">Edit</button>--><!--</td>-->
+      <td width="25%">
+        <button [routerLink]="['/add-item']" [queryParams]="{groupId : group.id}" mat-raised-button color="accent">
+          <span class="material-icons">add_task</span>
+        </button>
+      </td>
       <td>
         <div class="zippy">
           <div class="zippy-heading" [class.expanded]="isExpanded" (click)="toggle()">
-            
+
             <span class="fa" [ngClass]="{
             'fa-angle-up' : isExpanded,
             'fa-angle-down': !isExpanded
-             }"
-                  ></span>
+             }"></span>
           </div>
           <div *ngIf="isExpanded" class="zippy-body">
             <app-todo-item idOfGroup="{{group.id}}"></app-todo-item>
           </div>
         </div>
       </td>
-      <td><button class="btn-danger" (click)="deleteGroup(group.id)">Remove group</button></td>
+      <td @dissapearGroup>
+        <button color="warn" mat-raised-button (click)="deleteGroup(group.id)">
+          <mat-icon aria-hidden="false">delete_forever</mat-icon>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
-
-<!---->
-
-
-
-<!--<button type="button" data-toggle="collapse" [attr.data-target]="'#kupa'">
-  <i class="fa fa-angle-down"></i>
-</button>
-<div id="kupa" name="kupa" class="collapse">
-  <app-todo-item idOfGroup="{{group.id}}"></app-todo-item>
-</div>-->
-

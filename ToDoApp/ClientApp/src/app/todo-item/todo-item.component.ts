@@ -9,26 +9,22 @@ import { trigger, state, style, animate, animation, transition } from '@angular/
   styleUrls: ['./todo-item.component.css'],
   animations: [
     trigger('fade', [
+      transition(':leave', [
+        
+        animate(1000, style({ opacity: 0, backgroundColor: 'red', transform: 'translateX(50%)' }))
+      ]),
 
-      //state('faded', style({
-      //  height: '200px',
-      //  opacity: 1
-      //})),
-
-      //transition('void => *', [
-      //  style({opacity: 0}), animate(2000)
-      //]),
-
-      transition('* => void', [
-        animate(1000, style({opacity: 0, backgroundColor: 'red'}))
+      transition(':enter', [
+        style({ transform: 'translateX(-10px)' }),
+        animate(500)
       ])
     ])
   ]
 })
-export class TodoItemComponent implements OnInit{
+export class TodoItemComponent implements OnInit {
   @Input() idOfGroup: number;
   public items: TodoItems[];
-  constructor(private itemService: ItemService) {}
+  constructor(private itemService: ItemService) { }
 
   ngOnInit() {
     this.itemService.getData().subscribe((data: TodoItems[]) => {
@@ -50,7 +46,7 @@ export class TodoItemComponent implements OnInit{
     });
   }
 
- }
+}
 
 interface TodoItems {
   id: number,

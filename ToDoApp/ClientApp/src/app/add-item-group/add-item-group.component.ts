@@ -9,11 +9,14 @@ import { ItemGroupService } from '../services/item-group.service';
   styleUrls: ['./add-item-group.component.css']
 })
 export class AddItemGroupComponent{
+  public pageTitle = "Add Item Group"
   public name;
+  public todoGroup: ITodoItemGroup = {} as ITodoItemGroup;
+
   constructor(private groupService : ItemGroupService, private router: Router) { }
 
-  public addItemGroup(input: HTMLInputElement) {
-    this.groupService.createData(input).subscribe(status => {
+  public addItemGroup(todoGroup: ITodoItemGroup) {
+    this.groupService.createData(todoGroup).subscribe(status => {
 
       console.log(JSON.stringify(status))
       this.router.navigate(['/']);

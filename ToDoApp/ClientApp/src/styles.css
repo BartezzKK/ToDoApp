@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -24,3 +24,6 @@ code {
     color:green;
     font-weight: bold;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

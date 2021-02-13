@@ -4,7 +4,6 @@ import { ItemService } from '../services/item.service';
 import { ActivatedRoute, CanActivate, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-//import 'rxjs/add/operator/filter';
 
 
 @Component({
@@ -12,21 +11,18 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
   templateUrl: './add-item.component.html',
   styleUrls: ['./add-item.component.css']
 })
-export class AddItemComponent implements ITodoItem{
+export class AddItemComponent implements ITodoItem {
+  public title;
+  public description: string;
+  public id: number;
+  public todoItemgroupId: number;
+  public isDone: boolean;
+  public item: ITodoItem = {} as ITodoItem
+  public pageTitle = "Add Todo Item"
+  private queryParamsGroupId: number;
+
   constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router) { }
 
-  queryParamsGroupId: number;
-  id: number;
-  public title;
-  isDone: boolean;
-  description: string;
-  todoItemgroupId: number;
-  public item: ITodoItem = {} as ITodoItem
-
-  //itemFG = new FormGroup({
-  //  titleFC: new FormControl('', Validators.required ),
-  //  descriptionFC: new FormControl('')
-  //});
 
   public addItem(item: ITodoItem) {
     this.route.queryParams.pipe(filter(params => params.groupId))
@@ -40,10 +36,4 @@ export class AddItemComponent implements ITodoItem{
       this.router.navigate(['/']);
     })
   }
-
-  //public onSubmi() {
-  //  console.log(this.itemFG.value);
-  //}
-
-
 }

@@ -1,18 +1,24 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, Injectable, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { EditItemGroupComponent } from '../edit-item-group/edit-item-group.component';
 import { ITodoItem } from '../interfaces/itodo-item';
 import { ITodoItemGroup } from '../interfaces/itodo-item-group';
-import { DataService } from '../services/DataService';
 import { ItemGroupService } from '../services/item-group.service';
 import { ItemService } from '../services/item.service';
 
 @Component({
   selector: 'app-to-do-group',
   templateUrl: './to-do-group.component.html',
-  styleUrls: ['./to-do-group.component.css']
+  styleUrls: ['./to-do-group.component.css'],
+  animations: [
+    trigger('dissapearGroup', [
+      transition(':leave', [
+        animate(1000, style({opacity: 0, backgroundColor: 'red'}))
+      ])
+    ])
+  ]
 })
 
 
@@ -20,10 +26,13 @@ export class ToDoGroupComponent implements OnInit, ITodoItemGroup{
 
   groups: ITodoItemGroup[];
   items: ITodoItem[];
+  isLoading = false;
 
   constructor(private groupServcice: ItemGroupService,
     private itemService: ItemService,
-    private router: Router) { }
+    private router: Router,
+    private dialog: MatDialog
+    ) { }
 
   id: number;
   name: string;
@@ -33,6 +42,7 @@ export class ToDoGroupComponent implements OnInit, ITodoItemGroup{
   ngOnInit() {
     this.groupServcice.getData().subscribe((data: ITodoItemGroup[]) => {
       this.groups = data;
+      this.isLoading = true;
     })
     this.itemService.getData().subscribe((data: ITodoItem[]) => {
       this.items = data;
@@ -49,6 +59,9 @@ export class ToDoGroupComponent implements OnInit, ITodoItemGroup{
     this.isExpanded = !this.isExpanded;
   }
 
+  openDialog() {
+    this.dialog.open(EditItemGroupComponent)
+  }
   
 }
 

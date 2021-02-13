@@ -26,7 +26,7 @@ export class EditItemGroupComponent implements OnInit{
   }
 
   getOneGroup() {
-    this.groupService.getDataById(this.idG).subscribe(group => {
+    this.groupService.getDataById(this.idG).subscribe((group : ITodoItemGroup) => {
       this.group = group;
       console.log(group);
     }
