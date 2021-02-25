@@ -2,13 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
@@ -20,20 +19,29 @@ import { AddItemGroupComponent } from './add-item-group/add-item-group.component
 import { EditItemGroupComponent } from './edit-item-group/edit-item-group.component';
 import { MyTitleComponent } from './my-title/my-title.component';
 import { MatComponentsModule } from './mat-components.module'; 
+import { MatIconModule } from '@angular/material';
 
 @NgModule({
+  exports: [
+    MyTitleComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatIconModule,
+    BrowserAnimationsModule,
+    RouterLink
+  ],
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
     FetchDataComponent,
     ToDoGroupComponent,
     TodoItemComponent,
     AddItemComponent,
     AddItemGroupComponent,
     EditItemGroupComponent,
-    MyTitleComponent,
+    MyTitleComponent
   ],
   entryComponents: [
     EditItemGroupComponent
@@ -42,18 +50,17 @@ import { MatComponentsModule } from './mat-components.module';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    MatIconModule,
     ApiAuthorizationModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatComponentsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
       //{ path: 'to-do-group', component: ToDoGroupComponent },
       { path: 'add-item-group', component: AddItemGroupComponent /* canActivate: [AuthorizeGuard]  */},
       { path: 'add-item', component: AddItemComponent /* canActivate: [AuthorizeGuard]  */ },
-      { path: 'editItemGroup/:id', component: EditItemGroupComponent/*, canActivate: [AuthorizeGuard] */},
-      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      { path: 'editItemGroup/:id', component: EditItemGroupComponent/*, canActivate: [AuthorizeGuard] */}
     ])
   ],
   providers: [

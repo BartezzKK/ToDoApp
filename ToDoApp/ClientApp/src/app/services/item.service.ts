@@ -5,7 +5,7 @@ import { DataService } from './DataService';
 @Injectable({
   providedIn: 'root'
 })
-export class ItemService extends DataService{
+export class ItemService extends DataService {
 
   constructor(httpClient: HttpClient) {
     super('https://localhost:44381/todoitem', httpClient);

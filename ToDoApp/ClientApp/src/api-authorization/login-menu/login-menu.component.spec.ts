@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterLink } from '@angular/router';
 
 import { LoginMenuComponent } from './login-menu.component';
 
@@ -8,6 +9,7 @@ describe('LoginMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterLink],
       declarations: [ LoginMenuComponent ]
     })
     .compileComponents();
