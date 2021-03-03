@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ToDoGroupComponent } from './to-do-group.component';
 
@@ -6,7 +6,7 @@ describe('ToDoGroupComponent', () => {
   let component: ToDoGroupComponent;
   let fixture: ComponentFixture<ToDoGroupComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ToDoGroupComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EditItemGroupComponent } from './edit-item-group.component';
 
@@ -6,7 +6,7 @@ describe('EditItemGroupComponent', () => {
   let component: EditItemGroupComponent;
   let fixture: ComponentFixture<EditItemGroupComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ EditItemGroupComponent ]
     })

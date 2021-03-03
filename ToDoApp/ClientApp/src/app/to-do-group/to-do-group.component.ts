@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, Injectable, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { EditItemGroupComponent } from '../edit-item-group/edit-item-group.component';
 import { ITodoItem } from '../interfaces/itodo-item';

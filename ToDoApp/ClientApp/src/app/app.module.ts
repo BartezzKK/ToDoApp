@@ -47,14 +47,14 @@ import { MatComponentsModule } from './mat-components.module';
     ReactiveFormsModule,
     MatComponentsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      //{ path: 'to-do-group', component: ToDoGroupComponent },
-      { path: 'add-item-group', component: AddItemGroupComponent /* canActivate: [AuthorizeGuard]  */},
-      { path: 'add-item', component: AddItemComponent /* canActivate: [AuthorizeGuard]  */ },
-      { path: 'editItemGroup/:id', component: EditItemGroupComponent/*, canActivate: [AuthorizeGuard] */},
-      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-    ])
+    { path: '', component: HomeComponent, pathMatch: 'full' },
+    { path: 'counter', component: CounterComponent },
+    //{ path: 'to-do-group', component: ToDoGroupComponent },
+    { path: 'add-item-group', component: AddItemGroupComponent /* canActivate: [AuthorizeGuard]  */ },
+    { path: 'add-item', component: AddItemComponent /* canActivate: [AuthorizeGuard]  */ },
+    { path: 'editItemGroup/:id', component: EditItemGroupComponent /*, canActivate: [AuthorizeGuard] */ },
+    { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+], { relativeLinkResolution: 'legacy' })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
