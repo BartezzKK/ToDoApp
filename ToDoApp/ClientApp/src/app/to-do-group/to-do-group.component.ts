@@ -7,6 +7,7 @@ import { ITodoItem } from '../interfaces/itodo-item';
 import { ITodoItemGroup } from '../interfaces/itodo-item-group';
 import { ItemGroupService } from '../services/item-group.service';
 import { ItemService } from '../services/item.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-to-do-group',

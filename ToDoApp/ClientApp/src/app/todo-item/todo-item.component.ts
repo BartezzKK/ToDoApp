@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ItemService } from '../services/item.service';
 import { trigger, state, style, animate, animation, transition } from '@angular/animations';
+import { MatIconModule } from '@angular/material';
 
 @Component({
   selector: 'app-todo-item',
@@ -19,7 +20,8 @@ import { trigger, state, style, animate, animation, transition } from '@angular/
         animate(500)
       ])
     ])
-  ]
+  ],
+  
 })
 export class TodoItemComponent implements OnInit {
   @Input() idOfGroup: number;
@@ -29,7 +31,7 @@ export class TodoItemComponent implements OnInit {
   ngOnInit() {
     this.itemService.getData().subscribe((data: TodoItems[]) => {
       this.items = data;
-    })
+    });
   }
 
   deleteItem(item) {
@@ -54,4 +56,4 @@ interface TodoItems {
   isDone: boolean,
   description: string,
   toDoItemGroupId: number
-}
+};
