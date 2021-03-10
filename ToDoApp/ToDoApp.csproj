@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\interfaces\dialog-data.ts" />
     <None Remove="ClientApp\src\app\services\DataService.spec.ts" />
     <None Remove="ClientApp\src\app\services\DataService.ts" />
   </ItemGroup>

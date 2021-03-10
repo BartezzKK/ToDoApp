@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ITodoItemGroup } from '../interfaces/itodo-item-group';
 import { ItemGroupService } from '../services/item-group.service';
@@ -10,17 +11,21 @@ import { ItemGroupService } from '../services/item-group.service';
 })
 export class AddItemGroupComponent{
   public pageTitle = "Add Item Group"
-  public name;
   public todoGroup: ITodoItemGroup = {} as ITodoItemGroup;
+  formGroup = new FormGroup({
+    groupName: new FormControl('')
+  });
 
   constructor(private groupService : ItemGroupService, private router: Router) { }
 
-  public addItemGroup(todoGroup: ITodoItemGroup) {
-    this.groupService.createData(todoGroup).subscribe(status => {
+  public addItemGroup() {
+    this.todoGroup.name = this.formGroup.get('groupName').value;
 
+    this.groupService.createData(this.todoGroup).subscribe(status => {
       console.log(JSON.stringify(status))
       this.router.navigate(['/']);
     });
+    
   }
 
 }

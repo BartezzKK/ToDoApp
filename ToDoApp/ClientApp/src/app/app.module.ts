@@ -19,7 +19,11 @@ import { AddItemGroupComponent } from './add-item-group/add-item-group.component
 import { EditItemGroupComponent } from './edit-item-group/edit-item-group.component';
 import { MyTitleComponent } from './my-title/my-title.component';
 import { MatComponentsModule } from './mat-components.module'; 
-import { MatIconModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
   exports: [
@@ -29,7 +33,8 @@ import { MatIconModule } from '@angular/material';
     RouterModule,
     MatIconModule,
     BrowserAnimationsModule,
-    RouterLink
+    RouterLink,
+    MatDialogModule,
   ],
   declarations: [
     AppComponent,
@@ -41,10 +46,12 @@ import { MatIconModule } from '@angular/material';
     AddItemComponent,
     AddItemGroupComponent,
     EditItemGroupComponent,
-    MyTitleComponent
+    MyTitleComponent,
+    ConfirmDialogComponent
   ],
   entryComponents: [
-    EditItemGroupComponent
+    EditItemGroupComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -55,15 +62,16 @@ import { MatIconModule } from '@angular/material';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatComponentsModule,
+    MatCardModule,
     RouterModule.forRoot([
-    { path: '', component: HomeComponent, pathMatch: 'full' },
-    { path: 'counter', component: CounterComponent },
-    //{ path: 'to-do-group', component: ToDoGroupComponent },
-    { path: 'add-item-group', component: AddItemGroupComponent /* canActivate: [AuthorizeGuard]  */ },
-    { path: 'add-item', component: AddItemComponent /* canActivate: [AuthorizeGuard]  */ },
-    { path: 'editItemGroup/:id', component: EditItemGroupComponent /*, canActivate: [AuthorizeGuard] */ },
-    { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-], { relativeLinkResolution: 'legacy' })
+      { path: '', component: HomeComponent, pathMatch: 'full' },
+      //{ path: 'to-do-group', component: ToDoGroupComponent },
+      { path: 'add-item-group', component: AddItemGroupComponent /* canActivate: [AuthorizeGuard]  */ },
+      { path: 'add-item', component: AddItemComponent /* canActivate: [AuthorizeGuard]  */ },
+      { path: 'editItemGroup/:id', component: EditItemGroupComponent /*, canActivate: [AuthorizeGuard] */ },
+      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      { path: '**', redirectTo: '' },
+    ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }

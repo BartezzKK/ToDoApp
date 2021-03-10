@@ -8,7 +8,6 @@ describe('LoginMenuComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [RouterLink],
       declarations: [ LoginMenuComponent ]
     })
     .compileComponents();

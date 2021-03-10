@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ItemService } from '../services/item.service';
 import { trigger, state, style, animate, animation, transition } from '@angular/animations';
-import { MatIconModule } from '@angular/material';
+//import { MatIconModule } from '@angular/material';
 
 @Component({
   selector: 'app-todo-item',
@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material';
   animations: [
     trigger('fade', [
       transition(':leave', [
-        
+
         animate(1000, style({ opacity: 0, backgroundColor: 'red', transform: 'translateX(50%)' }))
       ]),
 
@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material';
       ])
     ])
   ],
-  
+
 })
 export class TodoItemComponent implements OnInit {
   @Input() idOfGroup: number;
@@ -47,7 +47,6 @@ export class TodoItemComponent implements OnInit {
       console.log('Task state has been changed');
     });
   }
-
 }
 
 interface TodoItems {

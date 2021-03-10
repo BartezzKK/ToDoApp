@@ -7,7 +7,7 @@
   <div *ngIf="item.toDoItemGroupId ==  idOfGroup">
     <b>Title:</b>{{item.title}}
     <span class="float-right">
-      <button cmat-raised-button color="primary" style="margin-right:5px" (click)="completeTask(item)"><mat-icon aria-hidden="false">task</mat-icon></button>
+      <button mat-raised-button color="primary" style="margin-right:5px" (click)="completeTask(item)"><mat-icon aria-hidden="false">task</mat-icon></button>
       <button mat-raised-button color="warn" (click)="deleteItem(item)" ><mat-icon aria-hidden="false">delete</mat-icon></button>
     </span><br />
     <b>Description:</b>{{item.description}}<br />

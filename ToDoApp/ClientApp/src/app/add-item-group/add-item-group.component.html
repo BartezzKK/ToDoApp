@@ -12,7 +12,7 @@
 </form>-->
 
 
-<form #todoItemGroupForm="ngForm" (ngSubmit)="addItemGroup(todoItemGroupForm.value)">
+<!--<form #todoItemGroupForm="ngForm" (ngSubmit)="addItemGroup(todoItemGroupForm.value)">
   <mat-form-field class="long-input" appearance="fill">
     <mat-label>Group name</mat-label>
     <input matInput type="text" name="name" required minlength="3" [(ngModel)]="todoGroup.name" #name="ngModel" />
@@ -20,5 +20,21 @@
   </mat-form-field>
   <br />
   <button type="submit" mat-raised-button color="primary" [disabled]="!name.valid">Click</button>
+  <button mat-raised-button color="accent" [routerLink]="['/']">Cancel</button>
+</form>-->
+
+<form [formGroup]="formGroup" (ngSubmit)="addItemGroup()">
+  <mat-form-field class="long-input" appearance="fill">
+    <mat-label>Group name</mat-label>
+    <input matInput
+           type="text"
+           name="groupName"
+           class="form-control"
+           formControlName="groupName"
+           required minlength="3" />
+    <mat-error *ngIf="!formGroup.valid && formGroup.touched">Group name required at least required 3 characters</mat-error>
+  </mat-form-field>
+  <br />
+  <button type="submit" mat-raised-button color="primary" [disabled]="!formGroup.valid">Click</button>
   <button mat-raised-button color="accent" [routerLink]="['/']">Cancel</button>
 </form>

@@ -1,5 +1,3 @@
-<!--<mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>-->
-
 <table class="table table-bordered table-hover table-striped">
   <thead>
     <tr>
@@ -7,19 +5,19 @@
       <th>Edit</th>
       <th>Add</th>
       <th style="min-width:600px">Details</th>
+      <th>Remove</th>
     </tr>
   </thead>
   <tbody>
     <tr @dissapearGroup *ngFor="let group of groups">
-      <td>{{group.name}}</td>
-      <td><button [routerLink]="['/editItemGroup/' + group.id]" color="primary" mat-raised-button>Edit</button></td>
-      <!--<td>--><!--<button (click)="openDialog()" class="btn btn-primary">Edit</button>--><!--</td>-->
-      <td width="25%">
+      <td @dissapearGroup>{{group.name}}</td>
+      <td @dissapearGroup><button [routerLink]="['/editItemGroup/' + group.id]" color="primary" mat-raised-button>Edit</button></td>
+      <td @dissapearGroup width="25%">
         <button [routerLink]="['/add-item']" [queryParams]="{groupId : group.id}" mat-raised-button color="accent">
           <span class="material-icons">add_task</span>
         </button>
       </td>
-      <td>
+      <td @dissapearGroup>
         <div class="zippy">
           <div class="zippy-heading" [class.expanded]="isExpanded" (click)="toggle()">
 
@@ -33,8 +31,8 @@
           </div>
         </div>
       </td>
-      <td @dissapearGroup>
-        <button color="warn" mat-raised-button (click)="deleteGroup(group.id)">
+      <td>
+        <button @dissapearGroup color="warn" mat-raised-button (click)="deleteGroup(group)">
           <mat-icon aria-hidden="false">delete_forever</mat-icon>
         </button>
       </td>

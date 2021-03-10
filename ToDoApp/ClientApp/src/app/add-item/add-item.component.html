@@ -1,28 +1,24 @@
-
 <custom-title title="{{pageTitle}}"></custom-title>
-<!--<form #todoItemForm="ngForm" (ngSubmit)="addItem(todoItemForm.value)">
-  <label>Todo name</label>
-  <input required minlength="3" name="title" type="text" class="form-control" [(ngModel)]="item.title" #title="ngModel" />
-  <div class="alert alert-danger" *ngIf="!title.valid && title.touched">Title required 3 characters</div>
-  <label>Todo description</label>
-  <input name="description" type="text" class="form-control" [(ngModel)]="item.description" />
-  <button type="submit" class="btn btn-primary">Click</button>
-  <button class="btn btn-warning" [routerLink]="['/']">Cancel</button>
-</form>-->
-
-<form #todoItemForm="ngForm" (ngSubmit)="addItem(todoItemForm.value)">
+<form [formGroup]="formGroup" (ngSubmit)="addItem()">
   <mat-form-field appearance="fill">
     <mat-label>Todo name</mat-label>
-    <input matInput type="text" name="title" required minlength="3" [(ngModel)]="item.title" #title="ngModel" />
-    <mat-error *ngIf="!title.valid && title.touched">Title required 3 characters</mat-error>
+    <input matInput
+           type="text"
+           name="itemTitle"
+           formControlName="itemTitle" />
+    <mat-error *ngIf="!formGroup.get('itemTitle').valid && formGroup.get('itemTitle').touched">Title required 3 characters</mat-error>
   </mat-form-field>
   <br />
   <mat-form-field class="long-description" appearance="fill">
     <mat-label>Todo description</mat-label>
-    <input matInput type="text" name="description" [(ngModel)]="item.description" />
+    <input matInput
+           type="text"
+           name="itemDescription"
+           formControlName="itemDescription"/>
+    <mat-error *ngIf="!formGroup.get('itemDescription').valid && formGroup.get('itemDescription').touched">Description required minimum 5 characters</mat-error>
   </mat-form-field>
   <br />
-  <button mat-raised-button color="primary" [disabled]="!title.valid">Click</button>
+  <button mat-raised-button color="primary" [disabled]="!formGroup.valid">Click</button>
   <button mat-raised-button color="accent" [routerLink]="['/']">Cancel</button>
 </form>
 

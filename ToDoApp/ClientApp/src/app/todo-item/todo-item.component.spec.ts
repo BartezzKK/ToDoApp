@@ -3,17 +3,23 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TodoItemComponent } from './todo-item.component';
 import { HttpClient } from '@angular/common/http';
 import { AppModule } from '../app.module';
+import { ItemService } from '../services/item.service';
+import { RouterModule } from '@angular/router';
+import { MatComponentsModule } from '../mat-components.module';
+import { MyTitleComponent } from '../my-title/my-title.component';
+import { ITodoItem } from '../interfaces/itodo-item';
+import { from } from 'rxjs/internal/observable/from';
 
 describe('TodoItemComponent', () => {
   let component: TodoItemComponent;
   let fixture: ComponentFixture<TodoItemComponent>;
   let service: ItemService;
   let httpClient: HttpClient;
-  let httpTestingController: HttpTestingController;
+  //let httpTestingController: HttpTestingController;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [MatComponentsModule, RouterModule, HttpClientTestingModule, AppModule],
+      imports: [MatComponentsModule, RouterModule, /*HttpClientTestingModule*/, AppModule],
       declarations: [TodoItemComponent, MyTitleComponent]
     })
       .compileComponents();

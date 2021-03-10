@@ -1,7 +1,15 @@
-<form #itemGroupForm="ngForm" (ngSubmit)="addEditedGroup(itemGroupForm.value)">
-  <label>You editing group: <b>{{group.name}}</b></label>
-  <input name="name" value="group.name" type="text" class="form-control" [(ngModel)]="name" />
-  <button type="submit" class="btn btn-primary">Save</button>
-  <button class="btn btn-warning" [routerLink]="['/']">Cancel</button>
+<custom-title title="{{pageTitle}}"></custom-title>
+<form [formGroup] ="formGroup" (ngSubmit)="addEditedGroup()">
+  <mat-form-field class="long-input" appearance="fill">
+    <!--<mat-label>You editing group: {{group.name}}</mat-label>-->
+    <input matInput
+           type="text"
+           name="groupName"
+           formControlName="groupName"
+           />
+    <mat-error *ngIf="!formGroup.get('groupName').valid && formGroup.get('groupName').touched">Group name required at least required 3 characters</mat-error>
+  </mat-form-field>
+  <br />
+  <button type="submit" mat-raised-button color="primary" [disabled]="!formGroup.valid">Update</button>
+  <button mat-raised-button color="accent" [routerLink]="['/']">Cancel</button>
 </form>
-
