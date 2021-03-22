@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -30,12 +29,23 @@ namespace ToDoApp.Controllers
             this.logger = logger;
             this.mapper = mapper;
         }
+
         // GET: <ToDoItemGroupController>
         [HttpGet]
-        public async Task<IEnumerable<TodoItemGroupReadDTO>> GetAllAsync()
+        public async Task<IEnumerable<TodoItemGroupReadDTO>> GetAllByUserId()
         {
-            var result = await todoItemGroupService.ListAllGroupAsync();
-            return mapper.Map<IEnumerable<TodoItemGroupReadDTO>>(result);
+
+            var userId = GetUserId();
+            if (userId != null)
+            {
+                var result = await todoItemGroupService.ListFilteredByUserId(userId);
+                if (result != null)
+                {
+                    return mapper.Map<IEnumerable<TodoItemGroupReadDTO>>(result);
+                }
+                else return null;
+            }
+            else return null;
         }
 
         // GET <ToDoItemGroupController>/5
@@ -43,7 +53,8 @@ namespace ToDoApp.Controllers
         public async Task<ActionResult<ToDoItemGroup>> Get(int id)
         {
            var result = await todoItemGroupService.GetToDoItemGroupByIdAsync(id);
-            if (result != null)
+
+            if (result != null && IsTheOwnerOfTheGroup(result))
             {
                 return Ok(mapper.Map<TodoItemGroupReadDTO>(result));
             }
@@ -54,27 +65,28 @@ namespace ToDoApp.Controllers
         [HttpPost]
         public async Task<ActionResult<ToDoItemGroupCreateDTO>> CreateGroup(ToDoItemGroupCreateDTO dtoItemGroup)
         {
-            if(dtoItemGroup == null)
-            { 
+            if (dtoItemGroup == null)
+            {
                 return UnprocessableEntity();
             }
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            dtoItemGroup.UserId = userId;
-            var result = mapper.Map<ToDoItemGroup>(dtoItemGroup);
-            await todoItemGroupService.AddItemGroupAsync(result);
+            var userId = GetUserId();
+            if (userId != null)
+            {
+                dtoItemGroup.UserId = userId;
+                var result = mapper.Map<ToDoItemGroup>(dtoItemGroup);
+                await todoItemGroupService.AddItemGroupAsync(result);
 
-            var createdItemGroup = mapper.Map<TodoItemGroupReadDTO>(result);
-            return Ok(createdItemGroup);
+                var createdItemGroup = mapper.Map<TodoItemGroupReadDTO>(result);
+                return Ok(createdItemGroup);
+            }
+
+            else return Unauthorized();
         }
 
         // PUT <ToDoItemGroupController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] ToDoItemGroupCreateDTO dtoGroup)
         {
-            // sprawdzić dlaczego angular nie przekazuje tego id do dtoGroup
-
-
-            dtoGroup.Id = id;
             var group = await todoItemGroupService.GetToDoItemGroupByIdAsync(id);
             if(group == null)
             {
@@ -91,12 +103,42 @@ namespace ToDoApp.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var item = await todoItemGroupService.GetToDoItemGroupByIdAsync(id);
-            if(item == null)
+            if (IsTheOwnerOfTheGroup(item))
             {
-                return NotFound();
+                if (item == null)
+                {
+                    return NotFound();
+                }
+                await todoItemGroupService.DeleteItemGroupAsync(item);
+                return Ok();
             }
-            await todoItemGroupService.DeleteItemGroupAsync(item);
-            return Ok();
+            else return Unauthorized();
+        }
+
+        /// <summary>
+        /// Check current logged user ID
+        /// </summary>
+        /// <returns>
+        /// Return user ID as string
+        /// </returns>
+        private string GetUserId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
+        /// <summary>
+        /// Validate UserId property of ToDoItemGroup and equal it to current user ID
+        /// </summary>
+        /// <param name="group">Object of ToDoItemGroup</param>
+        /// <returns>Return true if UserId of group is equal to current user ID otherwise return false</returns>
+        private bool IsTheOwnerOfTheGroup(ToDoItemGroup group)
+        {
+            string userId = GetUserId();
+            if (userId == group.UserId)
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

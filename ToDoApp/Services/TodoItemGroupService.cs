@@ -14,12 +14,6 @@ namespace ToDoApp.Services
             this.todoItemGroupRepository = todoItemGroupRepository;
         }
 
-        //useless?? AddItemGroupAsync instead of this
-        //public async Task AddGroupAsync(ToDoItemGroup toDoItemGroup)
-        //{
-        //    await todoItemGroupRepository.AddAsync(toDoItemGroup);
-        //}
-
         public async Task<ToDoItemGroup> GetToDoItemGroupByIdAsync(int id)
         {
             return await todoItemGroupRepository.GetByIdAsync(id);
@@ -47,6 +41,11 @@ namespace ToDoApp.Services
         public async Task<IReadOnlyList<ToDoItemGroup>> ListAllGroupAsync()
         {
             return await todoItemGroupRepository.ListAllAsync();
+        }
+
+        public async Task<IReadOnlyList<ToDoItemGroup>> ListFilteredByUserId(string userId)
+        {
+            return await todoItemGroupRepository.ListFilteredAsync(userId);
         }
     }
 }

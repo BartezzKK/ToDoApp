@@ -8,5 +8,6 @@ namespace ToDoApp.Data.Repositories.Interfaces
 {
     public interface ITodoItemGroupRepository : IRepository<ToDoItemGroup>
     {
+        Task<IReadOnlyList<ToDoItemGroup>> ListFilteredAsync(string userId);
     }
 }

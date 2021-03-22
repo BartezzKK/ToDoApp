@@ -37,7 +37,8 @@ export class DataService {
   }
 
   public updateData(id, resource) {
-    return this.httpClient.put(this.url + "/" + id, resource);
+    return this.httpClient.put(this.url + "/" + id, resource)
+      .pipe(catchError(this.handleError));
   }
 
 
@@ -47,6 +48,12 @@ export class DataService {
       errorMsg = `Error: ${error.error.message}`;
     } else {
       errorMsg = `Error code: ${error.status} \nMessage: ${error.message}`;
+    }
+    if (error.status === 401) {
+      errorMsg = `Error 401, You have to logged in before adding new things! `;
+    }
+    if (error.status === 404) {
+      errorMsg = `Ops 404, we cannot find it!`;
     }
     window.alert(errorMsg);
     return throwError(errorMsg);
